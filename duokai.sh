@@ -24,16 +24,20 @@ read -p "请输入你想要分配每个节点的存储空间大小（GB），单
 # 让用户输入存储路径（可选）
 read -p "请输入节点存储数据的宿主机路径（直接回车将使用默认路径 titan_storage_$i,依次数字顺延）: " custom_storage_path
 
-apt update
 
 # 检查 Docker 是否已安装
 if ! command -v docker &> /dev/null
 then
     echo "未检测到 Docker，正在安装..."
-    apt-get install ca-certificates curl gnupg lsb-release -y
+    sudo yum update
+    sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+    sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     
     # 安装 Docker 最新版本
-    apt-get install docker.io -y
+    sudo yum install docker-ce -y
+
+    sudo systemctl start docker
+    sudo systemctl enable docker
 else
     echo "Docker 已安装。"
 fi
