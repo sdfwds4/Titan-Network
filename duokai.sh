@@ -43,7 +43,7 @@ else
 fi
 
 # 拉取Docker镜像
-docker pull nezha123/titan-edge:1.3
+docker pull nezha123/titan-edge:1.4
 
 # 创建用户指定数量的容器
 for i in $(seq 1 $container_count)
